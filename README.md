@@ -1,5 +1,5 @@
 ## Convert int64 to full cardinal number strings.
 
-string := NumberToOrdinal(numberint64)
+`string := goCardinal.NumberToOrdinal(value)`
 
 Eg: Three hundred forty-second
