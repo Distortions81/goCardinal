@@ -2,4 +2,4 @@
 
 `string := goCardinal.NumberToOrdinal(value)`
 
-Eg: Three hundred forty-second
+Example: 342 (to) Three hundred forty-second
