@@ -28,7 +28,7 @@ var tensOrdinals = []string{
 }
 
 var magnitudes = []struct {
-	value           int64
+	value           uint64
 	singular        string
 	singularOrdinal string
 }{
@@ -42,14 +42,19 @@ var magnitudes = []struct {
 }
 
 // NumberToOrdinal converts an integer to its ordinal word form.
-// Supports numbers up to 9,223,372,036,854,775,807 (max int64 value).
+// Supports the entire int64 range, including negative numbers.
 func NumberToOrdinal(n int64) string {
 	if n == 0 {
 		return "Zeroth"
 	}
 
 	var words []string
-	remainder := n
+	remainder := uint64(n)
+	if n < 0 {
+		words = append(words, "minus")
+		// Avoid negating MinInt64, which cannot fit in a signed int64.
+		remainder = uint64(-(n + 1)) + 1
+	}
 	ordinalAlreadySet := false // Flag to indicate if ordinal conversion has been done
 
 	// Process magnitudes (quintillion, quadrillion, etc.)
@@ -118,7 +123,7 @@ func NumberToOrdinal(n int64) string {
 }
 
 // Helper function to convert numbers to words without ordinal suffixes.
-func numberToWords(n int64) string {
+func numberToWords(n uint64) string {
 	var words []string
 	remainder := n
 
